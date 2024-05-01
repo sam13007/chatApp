@@ -10,7 +10,7 @@ function ChatHeader() {
 
   const navigate = useNavigate();
   return (
-    <div className="w-full bg-[#222E35]  h-16">
+    <div className="w-full bg-[#222E35] h-[10%]">
       <div className="flex justify-between items-center h-full px-4 text-2xl">
         <h2> Hello, {name}</h2>
         <div
