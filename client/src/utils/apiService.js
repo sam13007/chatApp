@@ -30,3 +30,9 @@ export const fetchUserDetails = async (userId) => {
 
   return axios.get(uri);
 };
+
+export const fetchChats = async (chatId) => {
+  const uri = `http://localhost:8000/api/message/${chatId}`;
+
+  return axios.get(uri);
+};

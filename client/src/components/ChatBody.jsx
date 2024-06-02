@@ -1,8 +1,30 @@
-import React, { useState } from "react";
-import { FaPaperPlane } from "react-icons/fa";
-import { GoSmiley } from "react-icons/go";
+import React, { useContext, useEffect, useState } from "react";
+import { fetchChats } from "../utils/apiService.js";
+// import { FaPaperPlane } from "react-icons/fa";
+// import { GoSmiley } from "react-icons/go";
+import InputEmoji from "react-input-emoji";
+import { ChatContext } from "../context/ChatContext";
 
 function ChatBody() {
+  const { selectedChatId } = useContext(ChatContext);
+
+  const [chats, setChats] = useState(null);
+
+  useEffect(() => {
+    const fetchChatFromChatId = async (chatId) => {
+      try {
+        const { data } = await fetchChats(chatId);
+        console.log(data);
+      } catch (error) {
+        console.log("Error in fetching chats", error);
+      }
+    };
+
+    if (selectedChatId) {
+      fetchChatFromChatId(selectedChatId);
+    }
+  }, [selectedChatId]);
+
   const [message, setMessage] = useState("");
 
   const sendMessage = (e) => {
@@ -12,22 +34,20 @@ function ChatBody() {
   };
 
   return (
-    <div className=" bg-[#3d3d3ddb] h-full grow flex flex-col justify-between">
-      <div></div>
-      <form
-        className="flex justify-center gap-4 p-4 items-center bg-[#111B21]"
-        onSubmit={sendMessage}
-      >
-        <input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          type="text"
-          placeholder="Type message here"
-          className="outline-none border border-black py-2 px-4 rounded-lg bg-[#222e3597] w-[90%] my-2"
-        />
-        <GoSmiley size={20} />
-        <FaPaperPlane size={20} type="submit" />
-      </form>
+    <div className=" bg-[rgba(61,61,61,0.86)] h-full grow flex flex-col justify-between">
+      {selectedChatId ? (
+        <>
+          <div></div>
+          <InputEmoji />
+          {/* </form> */}
+        </>
+      ) : (
+        <div className="flex justify-center items-center h-full">
+          <p className="bg-gray-900 px-4 py-1 rounded-xl">
+            No Messages to display
+          </p>
+        </div>
+      )}
     </div>
   );
 }
