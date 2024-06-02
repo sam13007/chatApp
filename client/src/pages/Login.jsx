@@ -21,7 +21,7 @@ function Login() {
       setLoading(false);
       setEmail("");
       setPassword("");
-      setUser({ name: data.name, email: data.email });
+      setUser({ name: data.name, email: data.email, id: data.id });
       sessionStorage.setItem("user", JSON.stringify(data));
       navigate("/chat");
       toast.success("Successfully logged in");

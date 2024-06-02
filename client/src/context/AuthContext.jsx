@@ -7,7 +7,8 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const userData = JSON.parse(sessionStorage.getItem("user"));
-    if (userData) setUser({ name: userData.name, email: userData.email });
+    if (userData)
+      setUser({ name: userData.name, email: userData.email, id: userData.id });
   }, []);
 
   return (

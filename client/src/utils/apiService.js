@@ -18,3 +18,15 @@ export const loginUser = async ({ email, password }) => {
     email,
   });
 };
+
+export const fetchUserChatsAPI = async (userId) => {
+  const uri = `http://localhost:8000/api/chat/findAll/${userId}`;
+
+  return axios.get(uri);
+};
+
+export const fetchUserDetails = async (userId) => {
+  const uri = `http://localhost:8000/api/user//${userId}`;
+
+  return axios.get(uri);
+};
