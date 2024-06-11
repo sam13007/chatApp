@@ -4,6 +4,8 @@ import { fetchChats } from "../utils/apiService.js";
 // import { GoSmiley } from "react-icons/go";
 import InputEmoji from "react-input-emoji";
 import { ChatContext } from "../context/ChatContext";
+import MessageBox from "./MessageBox.jsx";
+import NoMessage from "./NoMessage.jsx";
 
 function ChatBody() {
   const { selectedChatId } = useContext(ChatContext);
@@ -14,7 +16,7 @@ function ChatBody() {
     const fetchChatFromChatId = async (chatId) => {
       try {
         const { data } = await fetchChats(chatId);
-        console.log(data);
+        setChats(data);
       } catch (error) {
         console.log("Error in fetching chats", error);
       }
@@ -27,8 +29,7 @@ function ChatBody() {
 
   const [message, setMessage] = useState("");
 
-  const sendMessage = (e) => {
-    e.preventDefault();
+  const sendMessage = (message) => {
     console.log("message", message);
     setMessage("");
   };
@@ -37,16 +38,29 @@ function ChatBody() {
     <div className=" bg-[rgba(61,61,61,0.86)] h-full grow flex flex-col justify-between">
       {selectedChatId ? (
         <>
-          <div></div>
-          <InputEmoji />
-          {/* </form> */}
+          {chats?.length > 0 ? (
+            <div className="m-3 h-full flex flex-col justify-end">
+              {chats.map((message) => (
+                <MessageBox message={message} key={message._id} />
+              ))}
+            </div>
+          ) : (
+            <NoMessage />
+          )}
+
+          <InputEmoji
+            background="rgba(61,61,61,0.86)"
+            borderColor="black"
+            borderRadius={18}
+            value={message}
+            onChange={setMessage}
+            cleanOnEnter
+            onEnter={sendMessage}
+            placeholder="Type a message"
+          />
         </>
       ) : (
-        <div className="flex justify-center items-center h-full">
-          <p className="bg-gray-900 px-4 py-1 rounded-xl">
-            No Messages to display
-          </p>
-        </div>
+        <NoMessage />
       )}
     </div>
   );

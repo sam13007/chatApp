@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ChatContext } from "../context/ChatContext";
 import Avatar from "../assets/avatar.svg";
 import { AuthContext } from "../context/AuthContext";
-import useFetchRecipients from "../hooks/useFetchrecipients.ts";
+import useFetchRecipients from "../hooks/useFetchrecipients.js";
 
 function RecipientCard({ chatDetail }) {
   const { setSelectedChatId, selectedChatId } = useContext(ChatContext);

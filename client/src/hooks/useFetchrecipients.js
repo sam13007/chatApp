@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchUserDetails } from "../utils/apiService";
 
 const useFetchrecipients = (chatDetail, user) => {
-  const [recipientsList, setRecipientsList] = useState<any>([]);
+  const [recipientsList, setRecipientsList] = useState([]);
 
   useEffect(() => {
     const recipientmember = chatDetail.members.find(
