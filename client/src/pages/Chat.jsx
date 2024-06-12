@@ -13,7 +13,7 @@ function Chat() {
         <div className="h-[90%] flex ">
           <ChatList user={user} />
 
-          <ChatBody />
+          <ChatBody user={user} />
         </div>
       </div>
     </ChatContextProvider>

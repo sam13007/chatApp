@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { fetchChats } from "../utils/apiService.js";
+import { fetchChats, postCreateMessage } from "../utils/apiService.js";
 // import { FaPaperPlane } from "react-icons/fa";
 // import { GoSmiley } from "react-icons/go";
 import InputEmoji from "react-input-emoji";
 import { ChatContext } from "../context/ChatContext";
 import MessageBox from "./MessageBox.jsx";
+
 import NoMessage from "./NoMessage.jsx";
 
-function ChatBody() {
+function ChatBody({ user }) {
   const { selectedChatId } = useContext(ChatContext);
 
   const [chats, setChats] = useState(null);
@@ -29,9 +30,24 @@ function ChatBody() {
 
   const [message, setMessage] = useState("");
 
-  const sendMessage = (message) => {
-    console.log("message", message);
-    setMessage("");
+  const sendMessage = async (message) => {
+    try {
+      if (user && selectedChatId) {
+        const requestBody = {
+          chatId: selectedChatId,
+          senderId: user.id,
+
+          text: message,
+        };
+
+        const { data } = await postCreateMessage(requestBody);
+
+        console.log(data);
+        setMessage("");
+      }
+    } catch (err) {
+      console.log(err, "Error in sending message");
+    }
   };
 
   return (
@@ -57,6 +73,8 @@ function ChatBody() {
             cleanOnEnter
             onEnter={sendMessage}
             placeholder="Type a message"
+            color="white"
+            theme="dark"
           />
         </>
       ) : (

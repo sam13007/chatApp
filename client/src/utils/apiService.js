@@ -36,3 +36,9 @@ export const fetchChats = async (chatId) => {
 
   return axios.get(uri);
 };
+
+export const postCreateMessage = async (req) => {
+  const uri = "http://localhost:8000/api/message/createMessage";
+
+  return axios.post(uri, req);
+};
