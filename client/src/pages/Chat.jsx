@@ -11,7 +11,7 @@ function Chat() {
       <div className="  bg-[#111B21] text-slate-100 h-full ">
         <ChatHeader />
         <div className="h-[90%] flex ">
-          <ChatList user={user} />
+          <ChatList />
 
           <ChatBody user={user} />
         </div>

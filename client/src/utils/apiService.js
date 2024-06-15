@@ -42,3 +42,15 @@ export const postCreateMessage = async (req) => {
 
   return axios.post(uri, req);
 };
+
+export const fetchUsers = async () => {
+  const uri = "http://localhost:8000/api/user";
+
+  return axios.get(uri);
+};
+
+export const createNewChat = async (reqBody) => {
+  const uri = "http://localhost:8000/api/chat/createChat";
+  console.log(reqBody);
+  return axios.post(uri, reqBody);
+};
